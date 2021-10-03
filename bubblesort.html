@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bubble Sort</title>
+	<style type="text/css">
+		body {
+			margin : 0px;
+		}
+		canvas {
+			border : 1px solid black
+			padding : 0px;
+		}
+	</style>
+</head>
+<body>
+	<script src = "p5.js"></script>
+	<script type="text/javascript">
+		var randomArray = [];
+		var numberOfColumns = 50;
+		function setup(){
+			createCanvas(800, 500);
+			for(var i = 1; i <= numberOfColumns; i++){
+				randomArray.push(i);
+			}
+		    for(let i = randomArray.length - 1; i > 0; i--){
+		        const j = Math.floor(Math.random() * randomArray.length);
+		        [randomArray[i], randomArray[j]] = [randomArray[j], randomArray[i]];
+		    }
+		}
+
+		var index = 0;
+		function draw (){
+			background(0);
+			for(var i = 0; i < randomArray.length; i++){
+				stroke(0);
+				fill(255);
+				rect(i * (800 / numberOfColumns), 500 - randomArray[i] * (500 / numberOfColumns), (800 / numberOfColumns), randomArray[i] * (500 / numberOfColumns));
+			}
+
+			// Sorting Algorithm
+			if(index < randomArray.length - 1){
+				[randomArray[index], randomArray[index + 1]] = randomArray[index] > randomArray[index + 1] ? [randomArray[index + 1], randomArray[index]] : [randomArray[index], randomArray[index + 1]];
+			}
+			if(index == randomArray.length - 1){
+				index = 0;
+				var errors = 0;
+				for(var i = 0; i < randomArray.length; i++){
+					if(i != randomArray.length - 1){
+						if(randomArray[i] > randomArray[i + 1]){
+							errors++;
+							break;
+						}
+					}
+				}
+				if(errors == 0){
+					noLoop();
+				}
+			} else {
+				index++;
+			}
+		}
+	</script>
+</body>
+</html>
+
+
+
